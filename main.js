@@ -1,6 +1,6 @@
 import './style.scss';
 import javascriptLogo from './javascript.svg';
-import { setupCounter } from './counter.js';
+import { setupMenuItem } from './navMenu.js';
 
 /* document.querySelector('#app').innerHTML = `
   <div>
@@ -15,3 +15,4 @@ import { setupCounter } from './counter.js';
 `;
 
 setupCounter(document.querySelector('#counter')); */
+setupMenuItem(document.querySelector('#navigation'));
