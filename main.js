@@ -1,6 +1,7 @@
 import './style.scss';
 import javascriptLogo from './javascript.svg';
 import { setupMenuItem } from './navMenu.js';
+import { setUpCitiesItems } from './cities';
 
 /* document.querySelector('#app').innerHTML = `
   <div>
@@ -16,3 +17,4 @@ import { setupMenuItem } from './navMenu.js';
 
 setupCounter(document.querySelector('#counter')); */
 setupMenuItem(document.querySelector('#navigation'));
+setUpCitiesItems(document.querySelector('.regions'));
