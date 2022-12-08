@@ -1,7 +1,7 @@
 import './style.scss';
 import javascriptLogo from './javascript.svg';
 import { setupMenuItem } from './navMenu.js';
-import { setUpCitiesItems } from './cities';
+import { setupCitiesBages, setUpCitiesItems } from './cities';
 
 /* document.querySelector('#app').innerHTML = `
   <div>

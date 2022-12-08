@@ -9,11 +9,11 @@ const cities = [
   'rnfhdglsf',
 ];
 
-export function setUpCitiesItems(element) {
-  let state = {
-    bageList: [],
-  };
+let state = {
+  bageList: [],
+};
 
+export function setUpCitiesItems(element) {
   const isEmptyBageList = state.bageList.length === 0;
 
   const dropDownElement = document.querySelector('.drop_down_menu');
@@ -42,10 +42,22 @@ export function setUpCitiesItems(element) {
         ...state,
         bageList: [...state.bageList, event.target.innerText],
       };
+      dropDownElement.style.cssText = 'height: 420px';
+      bagesContainer.classList.remove('hidden');
+      setupCitiesBages(document.querySelector('.cities-bages'));
     });
 
     element.appendChild(itemElement);
   });
+}
 
-  console.log('state', state);
+export function setupCitiesBages(element) {
+  console.log('state', state.bageList);
+  state.bageList.forEach((bage) => {
+    const bageElement = document.createElement('span');
+    bageElement.classList.add('bage');
+    bageElement.innerText = bage;
+
+    element.appendChild(bageElement);
+  });
 }
