@@ -42,6 +42,11 @@ ul {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: #242424;
+}
+
 #app {
   max-width: 1440px;
   margin: 0 auto;
@@ -71,11 +76,6 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    a {
-      text-decoration: none;
-      color: #242424;
-    }
   }
 
   .city {
@@ -99,8 +99,8 @@ ul {
       border: 1px solid #d8d8d8;
     }
 
-    i::before {
-      content: "\f124";
+    i:hover {
+      background-color: gray;
     }
 
     span {
@@ -143,13 +143,19 @@ ul {
 }
 
 .favorites {
-  width: 43px;
+  width: 50px;
   height: 32px;
   justify-self: end;
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-right: 10px;
+  cursor: pointer;
+}
+
+.favorites:hover {
+  background-color: gray;
+  border-radius: 30px;
 }
 
 .profile {
@@ -160,6 +166,7 @@ ul {
   align-items: center;
   font-size: 14px;
   line-height: 22px;
+  cursor: pointer;
 
 
   .profile_img {
