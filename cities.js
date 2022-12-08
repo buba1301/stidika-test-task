@@ -20,11 +20,8 @@ export function setUpCitiesItems(element) {
   const bagesContainer = document.querySelector('.cities-bages');
 
   if (isEmptyBageList) {
-    dropDownElement.style.cssText = 'height: 340px';
+    dropDownElement.style.cssText = 'height: 335px';
     bagesContainer.classList.add('hidden');
-  } else {
-    dropDownElement.style.cssText = 'height: 420px';
-    bagesContainer.classList.remove('hidden');
   }
 
   cities.forEach((city) => {
@@ -33,7 +30,7 @@ export function setUpCitiesItems(element) {
 
     spanElement.innerText = city;
     itemElement.appendChild(spanElement);
-    itemElement.classList.add('city');
+    itemElement.classList.add('region');
 
     itemElement.addEventListener('click', (event) => {
       console.log('item', event.target.innerText);

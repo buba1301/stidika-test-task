@@ -60,10 +60,25 @@
                 /></svg
             ></a>
           </div>
-          <button class="city" type="submit">
-            <i class="fa fa-location-arrow"></i>
-            <span>Алтайский край</span>
-          </button>
+          <div class="city_menu_wrap">
+            <button class="city" type="submit">
+              <i class="fa fa-location-arrow"></i>
+              <span>Алтайский край</span>
+            </button>
+            <div class="drop_down_menu">
+              <div class="city_search_wrap">
+                <input
+                  type="text"
+                  class="city_search"
+                  placeholder="Регион, город, населнный пункт"
+                />
+              </div>
+              <div class="cities-bages"></div>
+              <div class="regions"></div>
+              <button class="save_button">Сохранить</button>
+            </div>
+          </div>
+
           <div class="search_wrap">
             <svg
               class="search_icon"
@@ -100,19 +115,6 @@
           <ul id="navigation"></ul>
         </nav>
       </header>
-    </div>
-
-    <div class="drop_down_menu">
-      <div class="city_search_wrap">
-        <input
-          type="text"
-          class="city_search"
-          placeholder="Регион, город, населнный пункт"
-        />
-      </div>
-      <div class="cities-bages"></div>
-      <div class="regions"></div>
-      <button class="save_button">Сохранить</button>
     </div>
 
     <script type="module" src="/main.js"></script>
