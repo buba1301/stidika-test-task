@@ -244,11 +244,14 @@ a {
   }
 
   .cities-bages {
+    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
     height: 85px;
+
+    .bage {}
   }
 
   .hidden {
@@ -260,7 +263,6 @@ a {
     height: 200px;
     padding: 10px 20px;
     overflow: scroll;
-    text-align: start;
 
     .city {
       width: 100%;

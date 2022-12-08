@@ -54,9 +54,18 @@ export function setUpCitiesItems(element) {
 export function setupCitiesBages(element) {
   console.log('state', state.bageList);
   state.bageList.forEach((bage) => {
-    const bageElement = document.createElement('span');
+    const bageElement = document.createElement('div');
+    const textElement = document.createElement('span');
+    const closeElement = document.createElement('i');
+
     bageElement.classList.add('bage');
-    bageElement.innerText = bage;
+    textElement.innerText = bage;
+    closeElement.classList.add('fa-sharp fa-solid fa-xmark');
+
+    //TODO: как добавить кнопку закрытия
+
+    bageElement.appendChild(textElement);
+    bageElement.appendChild(closeElement);
 
     element.appendChild(bageElement);
   });
