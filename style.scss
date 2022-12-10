@@ -1,3 +1,10 @@
+$black: #242424;
+$background-white: rgba(255, 255, 255, 0.87);
+$white: #fff;
+$gray: #d8d8d8;
+$focus: #0dcaf0;
+$blue: #0656B4;
+
 *,
 *::before,
 *::after {
@@ -11,8 +18,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #242424;
-  background-color: rgba(255, 255, 255, 0.87);
+  color: $black;
+  background-color: $background-white;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -44,7 +51,7 @@ ul {
 
 a {
   text-decoration: none;
-  color: #242424;
+  color: $black
 }
 
 #app {
@@ -90,7 +97,7 @@ a {
     grid-template-columns: 32px 1fr;
     justify-items: center;
     align-items: center;
-    background-color: #fff;
+    background-color: $background-white;
     border: none;
     cursor: pointer;
 
@@ -101,16 +108,17 @@ a {
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid #d8d8d8;
+      border: 1px solid $gray;
     }
 
     i:hover {
-      background-color: gray;
+      background-color: $gray;
     }
 
     span {
       width: 100%;
       font-size: 14px;
+      line-height: 22px;
       justify-self: start;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -134,7 +142,7 @@ a {
     padding: 0 40px;
     font-size: 14px;
     line-height: 22px;
-    background-color: #f1f1f1;
+    background-color: $gray;
     border: none;
     border-radius: 40px;
     appearance: none;
@@ -145,8 +153,8 @@ a {
   }
 
   .search_input:focus {
-    background-color: rgba(255, 255, 255, 0.87);
-    border: 2px solid #0dcaf0
+    background-color: $background-white;
+    border: 2px solid $focus
   }
 }
 
@@ -162,7 +170,7 @@ a {
 }
 
 .favorites:hover {
-  background-color: gray;
+  background-color: $gray;
   border-radius: 30px;
 }
 
@@ -210,7 +218,7 @@ a {
     }
 
     li:hover {
-      background-color: gray;
+      background-color: $gray;
       border-radius: 30px;
     }
   }
@@ -224,7 +232,7 @@ a {
   width: 385px;
   z-index: 2000;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: $background-white;
   box-shadow: 0 7px 38px rgb(44 62 106 / 25%);
 
   .city_search_wrap {
@@ -238,15 +246,15 @@ a {
       padding: 0 40px;
       font-size: 14px;
       line-height: 22px;
-      background-color: #f1f1f1;
+      background-color: $gray;
       border: none;
       border-radius: 40px;
       appearance: none;
     }
 
     .city_search:focus {
-      background-color: rgba(255, 255, 255, 0.87);
-      border: 2px solid #0dcaf0
+      background-color: $background-white;
+      border: 2px solid $focus
     }
   }
 
@@ -259,13 +267,13 @@ a {
     gap: 10px;
     width: 100%;
     min-height: 85px;
-    border-bottom: 2px solid grey;
+    border-bottom: 2px solid $gray;
 
     .bage {
       min-height: 40px;
       border-radius: 50px;
-      background-color: blue;
-      color: #fff;
+      background-color: $blue;
+      color: $white;
       display: grid;
       grid-template-columns: 2fr 1fr;
       align-items: center;
@@ -303,10 +311,10 @@ a {
     width: 100%;
     height: 50px;
     border: none;
-    background-color: #0656B4;
+    background-color: $blue;
     cursor: pointer;
     border-radius: 0 0 10px 10px;
-    color: #fff;
+    color: $white;
     font-size: 12px;
     line-height: 16px;
     font-weight: 700;
@@ -389,7 +397,6 @@ a {
 .drop_down_open {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   -webkit-animation: scale-in-tl 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   animation: scale-in-tl 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
