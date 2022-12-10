@@ -309,8 +309,19 @@ a {
       cursor: pointer;
       font-size: 14px;
       line-height: 22px;
-      padding: 15px 20px;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
 
+      span {
+        text-align: center;
+      }
+
+      .region_info {
+        font-size: 10px;
+      }
     }
 
     .region:hover {

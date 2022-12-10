@@ -63,6 +63,61 @@ function setupCitiesBages() {
   deleteBage();
 }
 
+function addCityElement(name) {
+  const itemElement = document.createElement('div');
+  const spanElement = document.createElement('span');
+
+  spanElement.innerText = name;
+  itemElement.appendChild(spanElement);
+  addClassList(itemElement, 'region');
+  itemElement.id = name;
+
+  itemElement.addEventListener('click', (event) => {
+    const bageName = event.target.innerText;
+
+    state = {
+      ...state,
+      bageList: [...state.bageList, event.target.innerText],
+    };
+
+    addCss(dropDownElement, 'min-height: 420px');
+    removeClassList(bagesContainer, 'hidden');
+
+    setupCitiesBages();
+  });
+
+  regionsElement.appendChild(itemElement);
+}
+
+function addRegionElement(name, id) {
+  const spanElement = document.createElement('span');
+  const regionElement = document.getElementById(id);
+
+  spanElement.innerText = name;
+  addClassList(spanElement, 'region_info');
+  regionElement.appendChild(spanElement);
+}
+
+function setUpCitiesItems(regions) {
+  const isEmptyBageList = state.bageList.length === 0;
+
+  if (isEmptyBageList) {
+    addCss(dropDownElement, 'height: 335px');
+    addClassList(bagesContainer, 'hidden');
+  }
+
+  regions.forEach(({ name, type, cities }) => {
+    addCityElement(name);
+
+    if (type === 'area') {
+      cities.forEach((city) => {
+        addCityElement(city.name);
+        addRegionElement(name, city.name);
+      });
+    }
+  });
+}
+
 export async function openDropdown(element) {
   let openDropdown = false;
 
@@ -84,49 +139,4 @@ export async function openDropdown(element) {
   });
   const data = await getData();
   setUpCitiesItems(data);
-}
-
-function addCityElement(name) {
-  const itemElement = document.createElement('div');
-  const spanElement = document.createElement('span');
-
-  spanElement.innerText = name;
-  itemElement.appendChild(spanElement);
-  addClassList(itemElement, 'region');
-
-  itemElement.addEventListener('click', (event) => {
-    const bageName = event.target.innerText;
-
-    state = {
-      ...state,
-      bageList: [...state.bageList, event.target.innerText],
-    };
-
-    addCss(dropDownElement, 'min-height: 420px');
-    removeClassList(bagesContainer, 'hidden');
-
-    setupCitiesBages();
-  });
-
-  regionsElement.appendChild(itemElement);
-}
-
-export function setUpCitiesItems(regions) {
-  console.log('cities', regions);
-  const isEmptyBageList = state.bageList.length === 0;
-
-  if (isEmptyBageList) {
-    addCss(dropDownElement, 'height: 335px');
-    addClassList(bagesContainer, 'hidden');
-  }
-
-  regions.forEach(({ name, type, cities }) => {
-    addCityElement(name);
-
-    if (type === 'area') {
-      cities.forEach((city) => {
-        addCityElement(city.name);
-      });
-    }
-  });
 }

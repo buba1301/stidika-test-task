@@ -1,7 +1,7 @@
 import './style.scss';
 import javascriptLogo from './javascript.svg';
 import { setupMenuItem } from './navMenu.js';
-import { openDropdown, setUpCitiesItems } from './cities';
+import { openDropdown } from './cities';
 import { setupBurgerMenu } from './burgerMenu';
 import { getData } from './api';
 
