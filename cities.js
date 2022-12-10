@@ -1,12 +1,12 @@
 const cities = [
   'VJcrdf',
-  'sfsfsfdf',
-  'rtnmrmtnr',
-  'rtnsss',
-  'eremnrer',
-  'fkhjfgmfg',
-  'dfrogpdpfod',
-  'rnfhdglsf',
+  'Sfsfsfdf',
+  'Rtnmrmtnr',
+  'Rtnsss',
+  'Eremnrer',
+  'Fkhjfgmfg',
+  'Dfrogpdpfod',
+  'Rnfhdglsf',
 ];
 
 let state = {
@@ -60,7 +60,7 @@ export function setUpCitiesItems(element) {
         ...state,
         bageList: [...state.bageList, event.target.innerText],
       };
-      dropDownElement.style.cssText = 'height: 420px';
+      dropDownElement.style.cssText = 'min-height: 420px';
       bagesContainer.classList.remove('hidden');
       setupCitiesBages(document.querySelector('.cities-bages'));
     });
@@ -71,20 +71,9 @@ export function setUpCitiesItems(element) {
 
 export function setupCitiesBages(element) {
   console.log('state', state.bageList);
-  state.bageList.forEach((bage) => {
-    const bageElement = document.createElement('div');
-    const textElement = document.createElement('span');
-    const closeElement = document.createElement('i');
-
-    bageElement.classList.add('bage');
-    textElement.innerText = bage;
-    closeElement.classList.add('fa-sharp fa-solid fa-xmark');
-
-    //TODO: как добавить кнопку закрытия
-
-    bageElement.appendChild(textElement);
-    bageElement.appendChild(closeElement);
-
-    element.appendChild(bageElement);
+  const bages = state.bageList.map((bage) => {
+    return `<div class="bage"><span>${bage}</span><i class="fa-sharp fa-solid fa-xmark"></i></div>`;
   });
+
+  element.innerHTML = bages.join('');
 }
