@@ -1,4 +1,4 @@
-const cities = [
+/*const cities = [
   'VJcrdf',
   'Sfsfsfdf',
   'Rtnmrmtnr',
@@ -7,7 +7,9 @@ const cities = [
   'Fkhjfgmfg',
   'Dfrogpdpfod',
   'Rnfhdglsf',
-];
+];*/
+
+import { getData } from './api';
 
 let state = {
   bageList: [],
@@ -17,6 +19,7 @@ const dropDownMenu = document.querySelector('.drop_down_menu');
 const dropDownElement = document.querySelector('.drop_down_menu');
 const bagesContainer = document.querySelector('.cities-bages');
 const searchCityElement = document.querySelector('.city_search');
+const regionsElement = document.querySelector('.regions');
 
 const addClassList = (element, className) =>
   element.classList.add(className);
@@ -60,7 +63,7 @@ function setupCitiesBages() {
   deleteBage();
 }
 
-export function openDropdown(element) {
+export async function openDropdown(element) {
   let openDropdown = false;
 
   element.addEventListener('click', () => {
@@ -79,9 +82,37 @@ export function openDropdown(element) {
     removeClassList(dropDownMenu, removeClassName);
     addClassList(dropDownMenu, addClassName);
   });
+  const data = await getData();
+  setUpCitiesItems(data);
 }
 
-export function setUpCitiesItems(element) {
+function addCityElement(name) {
+  const itemElement = document.createElement('div');
+  const spanElement = document.createElement('span');
+
+  spanElement.innerText = name;
+  itemElement.appendChild(spanElement);
+  addClassList(itemElement, 'region');
+
+  itemElement.addEventListener('click', (event) => {
+    const bageName = event.target.innerText;
+
+    state = {
+      ...state,
+      bageList: [...state.bageList, event.target.innerText],
+    };
+
+    addCss(dropDownElement, 'min-height: 420px');
+    removeClassList(bagesContainer, 'hidden');
+
+    setupCitiesBages();
+  });
+
+  regionsElement.appendChild(itemElement);
+}
+
+export function setUpCitiesItems(regions) {
+  console.log('cities', regions);
   const isEmptyBageList = state.bageList.length === 0;
 
   if (isEmptyBageList) {
@@ -89,28 +120,13 @@ export function setUpCitiesItems(element) {
     addClassList(bagesContainer, 'hidden');
   }
 
-  cities.forEach((city) => {
-    const itemElement = document.createElement('div');
-    const spanElement = document.createElement('span');
+  regions.forEach(({ name, type, cities }) => {
+    addCityElement(name);
 
-    spanElement.innerText = city;
-    itemElement.appendChild(spanElement);
-    addClassList(itemElement, 'region');
-
-    itemElement.addEventListener('click', (event) => {
-      const bageName = event.target.innerText;
-
-      state = {
-        ...state,
-        bageList: [...state.bageList, event.target.innerText],
-      };
-
-      addCss(dropDownElement, 'min-height: 420px');
-      removeClassList(bagesContainer, 'hidden');
-
-      setupCitiesBages();
-    });
-
-    element.appendChild(itemElement);
+    if (type === 'area') {
+      cities.forEach((city) => {
+        addCityElement(city.name);
+      });
+    }
   });
 }
