@@ -23,6 +23,8 @@ const addClassList = (element, className) =>
 const removeClassList = (element, className) =>
   element.classList.remove(className);
 
+const isEmptyBageList = state.bageList.length === 0;
+
 function deleteBage() {
   const closeElements = document.querySelectorAll('.fa-sharp');
 
@@ -37,7 +39,7 @@ function deleteBage() {
 
       setupCitiesBages();
 
-      if (state.bageList.length === 0) {
+      if (isEmptyBageList) {
         addClassList(bagesContainer, 'hidden');
         dropDownElement.style.cssText = 'min-height: 335px';
       }
@@ -75,8 +77,6 @@ export function openDropdown(element) {
 }
 
 export function setUpCitiesItems(element) {
-  const isEmptyBageList = state.bageList.length === 0;
-
   if (isEmptyBageList) {
     dropDownElement.style.cssText = 'height: 335px';
     bagesContainer.classList.add('hidden');
