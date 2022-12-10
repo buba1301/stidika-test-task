@@ -294,7 +294,7 @@ a {
   .regions {
     width: 100%;
     height: 200px;
-    padding: 10px 20px;
+
     overflow: scroll;
     text-align: start;
 
@@ -304,6 +304,12 @@ a {
       cursor: pointer;
       font-size: 14px;
       line-height: 22px;
+      padding: 15px 20px;
+
+    }
+
+    .region:hover {
+      background-color: $gray;
     }
   }
 
