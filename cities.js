@@ -13,32 +13,37 @@ let state = {
   bageList: [],
 };
 
-export function openDropdown(element) {
-  console.log('element', element);
-  let openDropdown = false;
+const dropDownMenu = document.querySelector('.drop_down_menu');
+const dropDownElement = document.querySelector('.drop_down_menu');
+const bagesContainer = document.querySelector('.cities-bages');
 
-  const dropDownMenu = document.querySelector('.drop_down_menu');
+const addClassList = (element, className) =>
+  element.classList.add(className);
+
+const removeClassList = (element, className) =>
+  element.classList.remove(className);
+
+export function openDropdown(element) {
+  let openDropdown = false;
 
   element.addEventListener('click', () => {
     openDropdown = !openDropdown;
 
-    console.log('open', openDropdown);
+    const addClassName = openDropdown
+      ? 'drop_down_open'
+      : 'drop_down_close';
 
-    if (openDropdown) {
-      dropDownMenu.classList.remove('drop_down_close');
-      dropDownMenu.classList.add('drop_down_open');
-    } else {
-      dropDownMenu.classList.remove('drop_down_open');
-      dropDownMenu.classList.add('drop_down_close');
-    }
+    const removeClassName = openDropdown
+      ? 'drop_down_close'
+      : 'drop_down_open';
+
+    removeClassList(dropDownMenu, removeClassName);
+    addClassList(dropDownMenu, addClassName);
   });
 }
 
 export function setUpCitiesItems(element) {
   const isEmptyBageList = state.bageList.length === 0;
-
-  const dropDownElement = document.querySelector('.drop_down_menu');
-  const bagesContainer = document.querySelector('.cities-bages');
 
   if (isEmptyBageList) {
     dropDownElement.style.cssText = 'height: 335px';
@@ -54,7 +59,6 @@ export function setUpCitiesItems(element) {
     itemElement.classList.add('region');
 
     itemElement.addEventListener('click', (event) => {
-      console.log('item', event.target.innerText);
       const bageName = event.target.innerText;
       state = {
         ...state,
@@ -62,18 +66,41 @@ export function setUpCitiesItems(element) {
       };
       dropDownElement.style.cssText = 'min-height: 420px';
       bagesContainer.classList.remove('hidden');
-      setupCitiesBages(document.querySelector('.cities-bages'));
+      setupCitiesBages();
     });
 
     element.appendChild(itemElement);
   });
 }
 
-export function setupCitiesBages(element) {
-  console.log('state', state.bageList);
+function setupCitiesBages() {
   const bages = state.bageList.map((bage) => {
-    return `<div class="bage"><span>${bage}</span><i class="fa-sharp fa-solid fa-xmark"></i></div>`;
+    return `<div class="bage"><span>${bage}</span><i class="fa-sharp fa-solid fa-xmark" id=${bage}></i></div>`;
   });
 
-  element.innerHTML = bages.join('');
+  bagesContainer.innerHTML = bages.join('');
+
+  deleteBage();
+}
+
+function deleteBage() {
+  const closeElements = document.querySelectorAll('.fa-sharp');
+
+  closeElements.forEach((element) =>
+    element.addEventListener('click', (event) => {
+      const { id } = event.target;
+
+      state = {
+        ...state,
+        bageList: state.bageList.filter((bage) => bage !== id),
+      };
+
+      setupCitiesBages(document.querySelector('.cities-bages'));
+
+      if (state.bageList.length === 0) {
+        bagesContainer.classList.add('hidden');
+        dropDownElement.style.cssText = 'min-height: 335px';
+      }
+    })
+  );
 }

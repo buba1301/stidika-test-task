@@ -217,7 +217,6 @@ a {
 }
 
 .drop_down_menu {
-  height: auto;
   position: absolute;
   top: 50px;
   left: 0;
@@ -312,8 +311,6 @@ a {
     line-height: 16px;
     font-weight: 700;
     text-transform: uppercase;
-    grid-row-start: 4;
-    grid-row-end: 5;
   }
 }
 
@@ -390,15 +387,14 @@ a {
 }
 
 .drop_down_open {
-  display: grid;
-  grid-template-rows: 80px minmax(80px, 1fr) 200px 50px;
-  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   -webkit-animation: scale-in-tl 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   animation: scale-in-tl 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .drop_down_close {
-
   -webkit-animation: scale-out-tl 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   animation: scale-out-tl 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
