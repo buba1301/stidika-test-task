@@ -1,7 +1,11 @@
 import './style.scss';
 import javascriptLogo from './javascript.svg';
 import { setupMenuItem } from './navMenu.js';
-import { setupCitiesBages, setUpCitiesItems } from './cities';
+import {
+  openDropdown,
+  setupCitiesBages,
+  setUpCitiesItems,
+} from './cities';
 
 /* document.querySelector('#app').innerHTML = `
   <div>
@@ -16,5 +20,6 @@ import { setupCitiesBages, setUpCitiesItems } from './cities';
 `;
 
 setupCounter(document.querySelector('#counter')); */
+openDropdown(document.querySelector('.city'));
 setupMenuItem(document.querySelector('#navigation'));
 setUpCitiesItems(document.querySelector('.regions'));

@@ -224,8 +224,6 @@ a {
   width: 385px;
   z-index: 2000;
   border-radius: 10px;
-  display: grid;
-  grid-template-rows: repeat(2, 1fr) 2fr 1fr;
   background-color: #fff;
   box-shadow: 0 7px 38px rgb(44 62 106 / 25%);
 
@@ -296,4 +294,13 @@ a {
     font-weight: 700;
     text-transform: uppercase;
   }
+}
+
+.drop_down_open {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr) 2fr 1fr;
+}
+
+.drop_down_close {
+  display: none;
 }

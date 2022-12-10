@@ -13,6 +13,27 @@ let state = {
   bageList: [],
 };
 
+export function openDropdown(element) {
+  console.log('element', element);
+  let openDropdown = false;
+
+  const dropDownMenu = document.querySelector('.drop_down_menu');
+
+  element.addEventListener('click', () => {
+    openDropdown = !openDropdown;
+
+    console.log('open', openDropdown);
+
+    if (openDropdown) {
+      dropDownMenu.classList.remove('drop_down_close');
+      dropDownMenu.classList.add('drop_down_open');
+    } else {
+      dropDownMenu.classList.remove('drop_down_open');
+      dropDownMenu.classList.add('drop_down_close');
+    }
+  });
+}
+
 export function setUpCitiesItems(element) {
   const isEmptyBageList = state.bageList.length === 0;
 
