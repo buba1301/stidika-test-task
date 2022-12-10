@@ -16,6 +16,7 @@ let state = {
 const dropDownMenu = document.querySelector('.drop_down_menu');
 const dropDownElement = document.querySelector('.drop_down_menu');
 const bagesContainer = document.querySelector('.cities-bages');
+const searchCityElement = document.querySelector('.city_search');
 
 const addClassList = (element, className) =>
   element.classList.add(className);
@@ -64,6 +65,8 @@ export function openDropdown(element) {
 
   element.addEventListener('click', () => {
     openDropdown = !openDropdown;
+
+    openDropdown && searchCityElement.focus();
 
     const addClassName = openDropdown
       ? 'drop_down_open'
