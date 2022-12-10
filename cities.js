@@ -23,7 +23,7 @@ const addClassList = (element, className) =>
 const removeClassList = (element, className) =>
   element.classList.remove(className);
 
-const isEmptyBageList = state.bageList.length === 0;
+const addCss = (element, css) => (element.style.cssText = css);
 
 function deleteBage() {
   const closeElements = document.querySelectorAll('.fa-sharp');
@@ -39,9 +39,11 @@ function deleteBage() {
 
       setupCitiesBages();
 
+      const isEmptyBageList = state.bageList.length === 0;
+
       if (isEmptyBageList) {
         addClassList(bagesContainer, 'hidden');
-        dropDownElement.style.cssText = 'min-height: 335px';
+        addCss(dropDownElement, 'height: 335px');
       }
     })
   );
@@ -77,9 +79,11 @@ export function openDropdown(element) {
 }
 
 export function setUpCitiesItems(element) {
+  const isEmptyBageList = state.bageList.length === 0;
+
   if (isEmptyBageList) {
-    dropDownElement.style.cssText = 'height: 335px';
-    bagesContainer.classList.add('hidden');
+    addCss(dropDownElement, 'height: 335px');
+    addClassList(bagesContainer, 'hidden');
   }
 
   cities.forEach((city) => {
@@ -88,16 +92,19 @@ export function setUpCitiesItems(element) {
 
     spanElement.innerText = city;
     itemElement.appendChild(spanElement);
-    itemElement.classList.add('region');
+    addClassList(itemElement, 'region');
 
     itemElement.addEventListener('click', (event) => {
       const bageName = event.target.innerText;
+
       state = {
         ...state,
         bageList: [...state.bageList, event.target.innerText],
       };
-      dropDownElement.style.cssText = 'min-height: 420px';
-      bagesContainer.classList.remove('hidden');
+
+      addCss(dropDownElement, 'min-height: 420px');
+      removeClassList(bagesContainer, 'hidden');
+
       setupCitiesBages();
     });
 
