@@ -91,10 +91,11 @@ a {
   }
 
   .city {
-    width: auto;
+    width: 90%;
     height: auto;
     display: grid;
     grid-template-columns: 32px 1fr;
+    gap: 2px;
     justify-items: center;
     align-items: center;
     background-color: $background-white;
