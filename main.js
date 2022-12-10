@@ -2,6 +2,7 @@ import './style.scss';
 import javascriptLogo from './javascript.svg';
 import { setupMenuItem } from './navMenu.js';
 import { openDropdown, setUpCitiesItems } from './cities';
+import { setupBurgerMenu } from './burgerMenu';
 
 /* document.querySelector('#app').innerHTML = `
   <div>
@@ -16,6 +17,7 @@ import { openDropdown, setUpCitiesItems } from './cities';
 `;
 
 setupCounter(document.querySelector('#counter')); */
+setupBurgerMenu(document.querySelector('.burger_menu'));
 openDropdown(document.querySelector('.city'));
 setupMenuItem(document.querySelector('#navigation'));
 setUpCitiesItems(document.querySelector('.regions'));
