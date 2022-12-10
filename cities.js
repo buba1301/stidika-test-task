@@ -23,6 +23,38 @@ const addClassList = (element, className) =>
 const removeClassList = (element, className) =>
   element.classList.remove(className);
 
+function deleteBage() {
+  const closeElements = document.querySelectorAll('.fa-sharp');
+
+  closeElements.forEach((element) =>
+    element.addEventListener('click', (event) => {
+      const { id } = event.target;
+
+      state = {
+        ...state,
+        bageList: state.bageList.filter((bage) => bage !== id),
+      };
+
+      setupCitiesBages();
+
+      if (state.bageList.length === 0) {
+        addClassList(bagesContainer, 'hidden');
+        dropDownElement.style.cssText = 'min-height: 335px';
+      }
+    })
+  );
+}
+
+function setupCitiesBages() {
+  const bages = state.bageList.map((bage) => {
+    return `<div class="bage"><span>${bage}</span><i class="fa-sharp fa-solid fa-xmark" id=${bage}></i></div>`;
+  });
+
+  bagesContainer.innerHTML = bages.join('');
+
+  deleteBage();
+}
+
 export function openDropdown(element) {
   let openDropdown = false;
 
@@ -71,36 +103,4 @@ export function setUpCitiesItems(element) {
 
     element.appendChild(itemElement);
   });
-}
-
-function setupCitiesBages() {
-  const bages = state.bageList.map((bage) => {
-    return `<div class="bage"><span>${bage}</span><i class="fa-sharp fa-solid fa-xmark" id=${bage}></i></div>`;
-  });
-
-  bagesContainer.innerHTML = bages.join('');
-
-  deleteBage();
-}
-
-function deleteBage() {
-  const closeElements = document.querySelectorAll('.fa-sharp');
-
-  closeElements.forEach((element) =>
-    element.addEventListener('click', (event) => {
-      const { id } = event.target;
-
-      state = {
-        ...state,
-        bageList: state.bageList.filter((bage) => bage !== id),
-      };
-
-      setupCitiesBages(document.querySelector('.cities-bages'));
-
-      if (state.bageList.length === 0) {
-        bagesContainer.classList.add('hidden');
-        dropDownElement.style.cssText = 'min-height: 335px';
-      }
-    })
-  );
 }
