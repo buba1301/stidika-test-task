@@ -38,10 +38,11 @@ function deleteBage() {
     element.addEventListener('click', (event) => {
       const { id } = event.target;
 
-      state = {
-        ...state,
-        bageList: state.bageList.filter((bage) => bage !== id),
-      };
+      const data = state.bageList.filter(
+        (bage) => bage.id.toString() !== id
+      );
+
+      setState('bageList', data);
 
       setupCitiesBages();
 
@@ -56,8 +57,8 @@ function deleteBage() {
 }
 
 function setupCitiesBages() {
-  const bages = state.bageList.map((bage) => {
-    return `<div class="bage"><span>${bage}</span><i class="fa-sharp fa-solid fa-xmark" id=${bage}></i></div>`;
+  const bages = state.bageList.map(({ name, id }) => {
+    return `<div class="bage" id=${id}><span>${name}</span><i class="fa-sharp fa-solid fa-xmark" id=${id}></i></div>`;
   });
 
   bagesContainer.innerHTML = bages.join('');
@@ -65,20 +66,18 @@ function setupCitiesBages() {
   deleteBage();
 }
 
-function addCityElement(name) {
+function addCityElement(name, id) {
   const itemElement = document.createElement('div');
   const spanElement = document.createElement('span');
 
   spanElement.innerText = name;
   itemElement.appendChild(spanElement);
   addClassList(itemElement, 'region');
-  itemElement.id = name;
+  itemElement.id = id;
 
   itemElement.addEventListener('click', (event) => {
-    state = {
-      ...state,
-      bageList: [...state.bageList, name],
-    };
+    const data = [...state.bageList, { name, id }];
+    setState('bageList', data);
 
     addCss(dropDownElement, 'min-height: 420px');
     removeClassList(bagesContainer, 'hidden');
@@ -89,13 +88,13 @@ function addCityElement(name) {
   regionsElement.appendChild(itemElement);
 }
 
-function addRegionElement(name, id) {
+function addRegionInfo(name, id) {
   const spanElement = document.createElement('span');
-  const regionElement = document.getElementById(id);
+  const cityElement = document.getElementById(id);
 
   spanElement.innerText = name;
   addClassList(spanElement, 'region_info');
-  regionElement.appendChild(spanElement);
+  cityElement.appendChild(spanElement);
 }
 
 function setUpCitiesItems() {
@@ -106,13 +105,13 @@ function setUpCitiesItems() {
     addClassList(bagesContainer, 'hidden');
   }
 
-  state.regionsList.forEach(({ name, type, cities }) => {
-    addCityElement(name);
+  state.regionsList.forEach(({ name, type, cities, id }) => {
+    addCityElement(name, id);
 
     if (type === 'area') {
       cities.forEach((city) => {
-        addCityElement(city.name);
-        addRegionElement(name, city.name);
+        addCityElement(city.name, city.name);
+        addRegionInfo(name, city.name);
       });
     }
   });

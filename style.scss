@@ -336,6 +336,10 @@ a {
     .region:hover {
       background-color: $gray;
     }
+
+    .active {
+      background-color: $gray;
+    }
   }
 
   @keyframes loader {
@@ -379,10 +383,6 @@ a {
       animation-delay: -0.15s;
     }
   }
-
-
-
-
 
   .save_button {
     width: 100%;
