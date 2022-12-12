@@ -31,6 +31,26 @@ const setState = (key, value) => {
   };
 };
 
+export function searchCity() {
+  const copyRegionsList = [...state.regionsList];
+
+  searchCityElement.addEventListener('input', ({ target }) => {
+    const { value } = target;
+    const data = copyRegionsList.filter(({ name }) =>
+      name.toLowerCase().includes(value)
+    );
+
+    const isEmtySearch = value === '';
+
+    !isEmtySearch
+      ? setState('regionsList', data)
+      : setState('regionsList', copyRegionsList);
+
+    deleteChildrenElements();
+    setUpCitiesItems();
+  });
+}
+
 function deleteBage() {
   const closeElements = document.querySelectorAll('.fa-sharp');
 
@@ -66,14 +86,21 @@ function setupCitiesBages() {
   deleteBage();
 }
 
-function addCityElement(name, id) {
+function addCityElement(name, id, area) {
   const itemElement = document.createElement('div');
-  const spanElement = document.createElement('span');
+  const nameElement = document.createElement('span');
+  const areaElement = document.createElement('span');
 
-  spanElement.innerText = name;
-  itemElement.appendChild(spanElement);
+  nameElement.innerText = name;
+  itemElement.appendChild(nameElement);
   addClassList(itemElement, 'region');
   itemElement.id = id;
+
+  if (area) {
+    areaElement.innerText = area;
+    addClassList(areaElement, 'region_info');
+    itemElement.appendChild(areaElement);
+  }
 
   itemElement.addEventListener('click', (event) => {
     const data = [...state.bageList, { name, id }];
@@ -88,16 +115,9 @@ function addCityElement(name, id) {
   regionsElement.appendChild(itemElement);
 }
 
-function addRegionInfo(name, id) {
-  const spanElement = document.createElement('span');
-  const cityElement = document.getElementById(id);
-
-  spanElement.innerText = name;
-  addClassList(spanElement, 'region_info');
-  cityElement.appendChild(spanElement);
-}
-
 function setUpCitiesItems() {
+  console.log('!!!', state.regionsList);
+
   const isEmptyBageList = state.bageList.length === 0;
 
   if (isEmptyBageList) {
@@ -105,15 +125,8 @@ function setUpCitiesItems() {
     addClassList(bagesContainer, 'hidden');
   }
 
-  state.regionsList.forEach(({ name, type, cities, id }) => {
-    addCityElement(name, id);
-
-    if (type === 'area') {
-      cities.forEach((city) => {
-        addCityElement(city.name, city.name);
-        addRegionInfo(name, city.name);
-      });
-    }
+  state.regionsList.forEach(({ name, area, id }) => {
+    addCityElement(name, id, area);
   });
 }
 
@@ -139,8 +152,23 @@ async function fetchData() {
   try {
     const data = await getData();
 
+    const transformData = data.reduce((acc, item) => {
+      acc.push(item);
+
+      if (item.type === 'area') {
+        const cities = item.cities.map((city) => ({
+          ...city,
+          area: item.name,
+        }));
+        return [...acc, ...cities];
+      }
+      return acc;
+    }, []);
+
+    console.log('transformData', transformData);
+
     setState('isLoading', false);
-    setState('regionsList', data);
+    setState('regionsList', transformData);
 
     deleteChildrenElements();
   } catch (e) {
@@ -159,13 +187,15 @@ export function openDropdown(element) {
     toggleClassList(dropDownMenu, 'drop_down_close');
     toggleClassList(dropDownMenu, 'drop_down_open');
 
-    setUpCitiesItems();
+    setUpCitiesItems(state.regionsList);
 
     if (state.openDropdown && isEmptyRegionsList) {
       await fetchData();
 
-      setUpCitiesItems();
+      setUpCitiesItems(state.regionsList);
     }
+
+    searchCity();
 
     !state.openDropdown && deleteChildrenElements();
   });
