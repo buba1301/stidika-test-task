@@ -1,5 +1,4 @@
-import './style.scss';
-import javascriptLogo from './javascript.svg';
+import '../styles/style.scss';
 import { setupMenuItem } from './navMenu.js';
 import { openDropdown } from './cities';
 import { setupBurgerMenu } from './burgerMenu';
