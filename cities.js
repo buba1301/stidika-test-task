@@ -16,6 +16,10 @@ const searchCityWrapElement = document.querySelector(
 const searchCityElement = document.querySelector('.city_search');
 const regionsElement = document.querySelector('.regions');
 const closeBtn = document.querySelector('.reset_btn');
+const submitButton = document.querySelector('.save_button');
+const filterNamesElement = document.querySelector(
+  '.filter_button_name'
+);
 
 const addClassList = (element, className) =>
   element.classList.add(className);
@@ -151,7 +155,7 @@ function addCityElement(name, id, area) {
 }
 
 function setUpCitiesItems() {
-  console.log('setRegionList', state.regionsList);
+  console.log('setUpCitiesItems', state.regionsList);
   const isEmptyBageList = state.bageList.length === 0;
 
   if (isEmptyBageList) {
@@ -209,6 +213,22 @@ async function fetchData() {
   }
 }
 
+function setupSubmitButton() {
+  submitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const { bageList } = state;
+
+    const text = bageList.map(({ name }) => name).join(',');
+
+    filterNamesElement.innerText = text;
+
+    toggleClassList(dropDownMenu, 'drop_down_close');
+    toggleClassList(dropDownMenu, 'drop_down_open');
+    setState('openDropdown', !state.openDropdown);
+  });
+}
+
 export function openDropdown(element) {
   element.addEventListener('click', async () => {
     const isEmptyRegionsList = state.regionsList.length === 0;
@@ -220,15 +240,16 @@ export function openDropdown(element) {
     toggleClassList(dropDownMenu, 'drop_down_close');
     toggleClassList(dropDownMenu, 'drop_down_open');
 
-    setUpCitiesItems(state.regionsList);
+    setUpCitiesItems();
 
     if (state.openDropdown && isEmptyRegionsList) {
       await fetchData();
 
-      setUpCitiesItems(state.regionsList);
+      setUpCitiesItems();
     }
 
     searchCity();
+    setupSubmitButton();
 
     !state.openDropdown && deleteChildrenElements();
   });
