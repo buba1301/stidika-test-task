@@ -1,3 +1,4 @@
+import fetchMock from 'fetch-mock';
 import { getData } from './api';
 
 let state = {
@@ -220,6 +221,9 @@ function setupSubmitButton() {
     const { bageList } = state;
 
     const text = bageList.map(({ name }) => name).join(',');
+
+    document.cookie = `bages=${text}`;
+    fetchMock.get('http://good.com/', 200);
 
     filterNamesElement.innerText = text;
 
