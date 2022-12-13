@@ -10,8 +10,12 @@ let state = {
 const dropDownMenu = document.querySelector('.drop_down_menu');
 const dropDownElement = document.querySelector('.drop_down_menu');
 const bagesContainer = document.querySelector('.cities-bages');
+const searchCityWrapElement = document.querySelector(
+  '.city_search_wrap'
+);
 const searchCityElement = document.querySelector('.city_search');
 const regionsElement = document.querySelector('.regions');
+const closeBtn = document.querySelector('.reset_btn');
 
 const addClassList = (element, className) =>
   element.classList.add(className);
@@ -31,24 +35,39 @@ const setState = (key, value) => {
   };
 };
 
-export function searchCity() {
+function clearSearchInput(allRegions) {
+  closeBtn.addEventListener('click', () => {
+    searchCityElement.value = '';
+    addClassList(closeBtn, 'close_reset_btn');
+    setState('regionsList', allRegions);
+    deleteChildrenElements();
+    setUpCitiesItems();
+  });
+}
+
+function searchCity() {
   const copyRegionsList = [...state.regionsList];
 
   searchCityElement.addEventListener('input', ({ target }) => {
     const { value } = target;
-    const data = copyRegionsList.filter(({ name }) =>
-      name.toLowerCase().includes(value)
-    );
 
     const isEmtySearch = value === '';
 
-    !isEmtySearch
-      ? setState('regionsList', data)
-      : setState('regionsList', copyRegionsList);
-
+    if (isEmtySearch) {
+      setState('regionsList', copyRegionsList);
+      addClassList(closeBtn, 'close_reset_btn');
+    } else {
+      const filteredData = copyRegionsList.filter(({ name }) =>
+        name.toLowerCase().includes(value)
+      );
+      setState('regionsList', filteredData);
+      removeClassList(closeBtn, 'close_reset_btn');
+    }
     deleteChildrenElements();
     setUpCitiesItems();
   });
+
+  clearSearchInput(copyRegionsList);
 }
 
 function deleteBage() {
@@ -116,8 +135,7 @@ function addCityElement(name, id, area) {
 }
 
 function setUpCitiesItems() {
-  console.log('!!!', state.regionsList);
-
+  console.log('setRegionList', state.regionsList);
   const isEmptyBageList = state.bageList.length === 0;
 
   if (isEmptyBageList) {
@@ -162,10 +180,9 @@ async function fetchData() {
         }));
         return [...acc, ...cities];
       }
+
       return acc;
     }, []);
-
-    console.log('transformData', transformData);
 
     setState('isLoading', false);
     setState('regionsList', transformData);

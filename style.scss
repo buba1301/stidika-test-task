@@ -242,6 +242,7 @@ a {
   box-shadow: 0 7px 38px rgb(44 62 106 / 25%);
 
   .city_search_wrap {
+    position: relative;
     width: 100%;
     height: 85px;
     padding: 17px 10px;
@@ -256,6 +257,18 @@ a {
       border: none;
       border-radius: 40px;
       appearance: none;
+    }
+
+    .reset_btn {
+      display: block;
+      position: absolute;
+      top: 40%;
+      right: 30px;
+      cursor: pointer;
+    }
+
+    .close_reset_btn {
+      display: none;
     }
 
     .city_search:focus {
