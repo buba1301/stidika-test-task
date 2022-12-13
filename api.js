@@ -4,7 +4,6 @@ export const getData = async () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log('DATA', data);
       return data;
     });
 };

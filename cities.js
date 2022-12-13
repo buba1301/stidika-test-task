@@ -156,7 +156,6 @@ function addCityElement(name, id, area) {
 }
 
 function setUpCitiesItems() {
-  console.log('setUpCitiesItems', state.regionsList);
   const isEmptyBageList = state.bageList.length === 0;
 
   if (isEmptyBageList) {
