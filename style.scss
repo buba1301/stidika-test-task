@@ -3,7 +3,7 @@ $background-white: rgba(255, 255, 255, 0.87);
 $white: #fff;
 $gray: #d8d8d8;
 $darkGrey: #767676;
-$focus: #0dcaf0;
+$focus: #abc8ea;
 $background-mobile: #0dcaf0;
 $blue: #0656B4;
 
@@ -43,6 +43,10 @@ h1 {
 button,
 input {
   color: inherit;
+}
+
+input:focus {
+  outline: none;
 }
 
 ul {
