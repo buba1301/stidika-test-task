@@ -40,6 +40,8 @@ const setState = (key, value) => {
   };
 };
 
+const isEmptyBageList = () => state.bageList.length === 0;
+
 function clearSearchInput(allRegions) {
   closeBtn.addEventListener('click', () => {
     searchCityElement.value = '';
@@ -99,9 +101,7 @@ function deleteBage() {
       setupCitiesBages();
       setUpCitiesItems();
 
-      const isEmptyBageList = state.bageList.length === 0;
-
-      if (isEmptyBageList) {
+      if (isEmptyBageList()) {
         addClassList(bagesContainer, 'hidden');
         addCss(dropDownElement, 'height: 335px');
       }
@@ -110,6 +110,11 @@ function deleteBage() {
 }
 
 function setupCitiesBages() {
+  if (isEmptyBageList()) {
+    addCss(dropDownElement, 'height: 335px');
+    addClassList(bagesContainer, 'hidden');
+  }
+
   const bages = state.bageList.map(({ name, id }) => {
     return `<div class="bage" id=${id}><span>${name}</span><i class="fa-sharp fa-solid fa-xmark"></i></div>`;
   });
@@ -140,7 +145,13 @@ function addCityElement(name, id, area) {
       (bage) => bage.id === id
     );
 
-    if (isActiveElement) return;
+    if (isActiveElement) {
+      const data = state.bageList.filter((bage) => bage.id !== id);
+      setState('bageList', data);
+      removeClassList(cityElement, 'active');
+      setupCitiesBages();
+      return;
+    }
 
     const data = [...state.bageList, { name, id }];
     setState('bageList', data);
@@ -156,9 +167,7 @@ function addCityElement(name, id, area) {
 }
 
 function setUpCitiesItems() {
-  const isEmptyBageList = state.bageList.length === 0;
-
-  if (isEmptyBageList) {
+  if (isEmptyBageList()) {
     addCss(dropDownElement, 'height: 335px');
     addClassList(bagesContainer, 'hidden');
   }
