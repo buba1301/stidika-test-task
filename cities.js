@@ -71,11 +71,21 @@ function searchCity() {
 }
 
 function deleteBage() {
-  const closeElements = document.querySelectorAll('.fa-sharp');
+  const closeElements = document.querySelectorAll('.bage');
+
+  // console.log('cityElement', cityElement);
 
   closeElements.forEach((element) =>
     element.addEventListener('click', (event) => {
-      const { id } = event.target;
+      const { id } = event.currentTarget;
+
+      const cityElement = document.getElementById(`city-${id}`);
+      removeClassList(cityElement, 'active');
+
+      console.log(
+        'CityElement',
+        document.getElementById(`city-${id}`)
+      );
 
       const data = state.bageList.filter(
         (bage) => bage.id.toString() !== id
@@ -84,6 +94,7 @@ function deleteBage() {
       setState('bageList', data);
 
       setupCitiesBages();
+      setUpCitiesItems();
 
       const isEmptyBageList = state.bageList.length === 0;
 
@@ -97,7 +108,7 @@ function deleteBage() {
 
 function setupCitiesBages() {
   const bages = state.bageList.map(({ name, id }) => {
-    return `<div class="bage" id=${id}><span>${name}</span><i class="fa-sharp fa-solid fa-xmark" id=${id}></i></div>`;
+    return `<div class="bage" id=${id}><span>${name}</span><i class="fa-sharp fa-solid fa-xmark"></i></div>`;
   });
 
   bagesContainer.innerHTML = bages.join('');
@@ -106,32 +117,33 @@ function setupCitiesBages() {
 }
 
 function addCityElement(name, id, area) {
-  const itemElement = document.createElement('div');
+  const cityElement = document.createElement('div');
   const nameElement = document.createElement('span');
   const areaElement = document.createElement('span');
 
   nameElement.innerText = name;
-  itemElement.appendChild(nameElement);
-  addClassList(itemElement, 'region');
-  itemElement.id = id;
+  cityElement.appendChild(nameElement);
+  addClassList(cityElement, 'region');
+  cityElement.id = `city-${id}`;
 
   if (area) {
     areaElement.innerText = area;
     addClassList(areaElement, 'region_info');
-    itemElement.appendChild(areaElement);
+    cityElement.appendChild(areaElement);
   }
 
-  itemElement.addEventListener('click', (event) => {
+  cityElement.addEventListener('click', (event) => {
     const data = [...state.bageList, { name, id }];
     setState('bageList', data);
 
     addCss(dropDownElement, 'min-height: 420px');
+    addClassList(cityElement, 'active');
     removeClassList(bagesContainer, 'hidden');
 
     setupCitiesBages();
   });
 
-  regionsElement.appendChild(itemElement);
+  regionsElement.appendChild(cityElement);
 }
 
 function setUpCitiesItems() {
