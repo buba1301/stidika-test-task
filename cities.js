@@ -73,8 +73,6 @@ function searchCity() {
 function deleteBage() {
   const closeElements = document.querySelectorAll('.bage');
 
-  // console.log('cityElement', cityElement);
-
   closeElements.forEach((element) =>
     element.addEventListener('click', (event) => {
       const { id } = event.currentTarget;
@@ -133,6 +131,12 @@ function addCityElement(name, id, area) {
   }
 
   cityElement.addEventListener('click', (event) => {
+    const isActiveElement = state.bageList.find(
+      (bage) => bage.id === id
+    );
+
+    if (isActiveElement) return;
+
     const data = [...state.bageList, { name, id }];
     setState('bageList', data);
 
